@@ -16,8 +16,8 @@ const CardAction = styled.div`
 const CardActions = ({ items }) => {
     return (
         <CardActionsWrapper>
-            {items.map(item =>
-                <CardAction>{item}</CardAction>
+            {items.map((item, index) =>
+                <CardAction key={index}>{item}</CardAction>
             )}
         </CardActionsWrapper>
     )

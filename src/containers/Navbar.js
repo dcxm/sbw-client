@@ -5,9 +5,7 @@ import { Transition } from 'react-transition-group'
 
 import NavLinks from '../components/NavLinks'
 import NavWrapper from '../components/NavWrapper'
-import NavbarCollapseButton from '../components/NavbarCollapseButton'
-
-import P from '../components/P'
+import NavbarCollapseButton from '../components/Buttons/NavbarCollapseButton'
 
 const SiteTitle = styled.h1`
   font-size: 1.5em;
@@ -26,14 +24,14 @@ const transitionStyles = {
 
 const animationDuration = 200 // in ms
 
-const Navbar = ({ siteTitle, collapseIcon }) => {
+const Navbar = ({ title, collapseIcon }) => {
     const [isNavbarOpen, setNavbarOpen] = useState(true)
     return (
         <>
             <Transition
                 in={isNavbarOpen}
-                unmountOnExit
-                mountOnEnter
+                // unmountOnExit
+                // mountOnEnter
                 timeout={animationDuration}>
                 {state =>
                     <NavWrapper border transitionProp={isNavbarOpen}
@@ -41,10 +39,10 @@ const Navbar = ({ siteTitle, collapseIcon }) => {
                             transform: ``,
                             transition: `transform ${animationDuration}ms`, ...transitionStyles[state]
                         }}>
-                        <SiteTitle>{siteTitle}</SiteTitle >
+                        <SiteTitle>{title}</SiteTitle >
                         <NavLinks />
-                        {/* customComponents menu={[<P><strong>Search</strong></P>, <P><strong>Filter</strong></P>]} */}
-                        {/* menu={[{text: 'Hello', link: '/hy'}]} */}
+                            {/* customComponents menu={[<P><strong>Search</strong></P>, <P><strong>Filter</strong></P>]} */}
+                            {/* menu={[{text: 'Hello', link: '/hy'}]} */}
                     </NavWrapper >
                 }
             </Transition>

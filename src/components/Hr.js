@@ -9,6 +9,7 @@ const HrStyled = styled.hr`
     left: 0%;
     width: 100%;
     border: none;
+    margin: 0;
     background-color: ${({theme}) => theme.colors.borders}
 `
 
@@ -30,9 +31,9 @@ HrWrapper.defaultProps = {
     margin: '1.5em 0'
 }
 
-const Hr = ({margin}) => {
+const Hr = ({margin, style}) => {
     return (
-        <HrWrapper margin={margin}>
+        <HrWrapper margin={margin} style={style}>
             <HrStyled />
         </HrWrapper>
     )

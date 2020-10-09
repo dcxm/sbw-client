@@ -4,6 +4,9 @@ import styled from 'styled-components'
 
 const NavWrapper = styled.div`
   display: flex;
+  position: fixed;
+  z-index: 99;
+  width: 100%;
   box-sizing: border-box;
   justify-content: space-between;
   align-items: center;

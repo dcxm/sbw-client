@@ -2,31 +2,30 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-const NavbarCollapseButton = styled.button`
+const CircularButton = styled.button`
     display: flex;
     justify-content: center;
     align-items: center;
-    width: 3.5em;
-    height: 3.5em;
+    width: ${({size}) => `${0.5 * size}em`};
+    height: ${({size}) => `${0.5 * size}em`};
     border: none;
     border-radius: 50%;
     background-color: ${({ theme }) => theme.colors.secondary};
-    position: fixed;
-    top: .6em;
-    right: 1em;
+    position: ${({position}) => position};
+    z-index: 100;
     cursor: pointer;
     outline: none;
-    transform: ${({ isNavbarOpen }) => !isNavbarOpen ? `rotate(180deg)` : `rotate()`};
     transition: all .2s;
 `
 
-NavbarCollapseButton.defaultProps = {
+CircularButton.defaultProps = {
     theme: {
         colors: {
             secondary: 'gray'
         }
     },
-    isNavbarOpen: true
+    position: 'relative',
+    size: 7
 }
 
-export default NavbarCollapseButton
+export default CircularButton

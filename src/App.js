@@ -1,16 +1,16 @@
-import React, {useState} from 'react'
+import React, { useState } from 'react'
 import './App.css'
 
-import Navbar from './containers/Navbar'
-import Main from './components/Main'
-import Card from './components/Card/Card'
-import Header from './components/Header'
-import Dialog from './components/Dialog'
+import { Provider } from 'react-redux'
+import store from './store/index'
+
+import Routes from './Routes'
+import Layout from './components/Layout'
+
+import { BrowserRouter as Router, useLocation } from 'react-router-dom'
 
 import { ThemeProvider, createGlobalStyle } from 'styled-components'
 import theme from './theme'
-
-import { ReactComponent as CollapseIcon } from './icons/angle-up-solid.svg'
 
 const GlobalStyle = createGlobalStyle`
   ::selection {
@@ -19,20 +19,18 @@ const GlobalStyle = createGlobalStyle`
 `
 
 function App() {
-  const [open, setOpen] = useState(true)
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyle />
-      <Navbar siteTitle="SBW" collapseIcon={<CollapseIcon />} />
-      <Main>
-        <Header variant={'1'} style={{ marginBottom: '1em' }}>
-          My writings
-        </Header>
-        <Card />
-      </Main>
-      <Dialog title="Add items" open={open} closeAction={() => setOpen(!open)}/>
-    </ThemeProvider>
+    <Router>
+      <ThemeProvider theme={theme}>
+        <Provider store={store}>
+          <GlobalStyle />
+          <Layout>
+            <Routes />
+          </Layout>
+        </Provider>
+      </ThemeProvider>
+    </Router>
   );
 }
 
