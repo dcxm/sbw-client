@@ -7,10 +7,14 @@ import Dialog from './Dialog/Dialog'
 import CircularButton from './Buttons/CircularButton'
 
 import { ReactComponent as CollapseIcon } from '../icons/angle-up-solid.svg'
+import { connect } from 'react-redux'
+import { setOpenableAction } from '../store/actions/openablesActions'
 
-const Layout = ({ children }) => {
-    const [open, setOpen] = useState(false)
+const Layout = ({ children, setOpenable }) => {
     const isLoginPage = useLocation().pathname === '/login'
+
+    const handleAddItemOpen = () => setOpenable({field: 'addItemDialog'})
+
     return (
         <>
             {!isLoginPage && <Navbar title="SBW" collapseIcon={<CollapseIcon />} />}
@@ -18,7 +22,7 @@ const Layout = ({ children }) => {
             {!isLoginPage &&
                 <>
                     <CircularButton
-                        onClick={() => setOpen(!open)}
+                        onClick={handleAddItemOpen}
                         size={5}
                         position="fixed"
                         style={{
@@ -28,13 +32,15 @@ const Layout = ({ children }) => {
                             color: "white"
                         }}
                     >+</CircularButton>
-                    <Dialog title="Add items" open={open} closeAction={() => setOpen(!open)}>
-                        <label htmlFor="title">Title</label>
-                        <input type="text" name="title" id="" />
-                    </Dialog>
                 </>}
         </>
     )
 }
 
-export default Layout
+const mapDispatchToProps = (dispatch) => {
+    return {
+        setOpenable: (payload) => dispatch(setOpenableAction(payload))
+    }
+}
+
+export default connect(null, mapDispatchToProps)(Layout)

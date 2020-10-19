@@ -19,6 +19,7 @@ const CardWrapper = styled.div`
     border-radius: 1em;
     padding: 1.5em 1.5em 2em 1.5em;
     width: 100%;
+    margin: 1.5em 0;
     position: relative;
 `
 

@@ -32,13 +32,14 @@ const WidthWrapper = styled.div`
     display: flex;
     flex-direction: column;
     align-items: ${({align}) => align ? align : 'flex-start'};
+    justify-content: ${({Valign}) => Valign ? Valign : 'flex-start'};
     width: 90%;
     ${printWidths(widths)}
 `
 
-const Container = ({ children, align }) => {
+const Container = ({ children, align, style }) => {
     return (
-        <Wrapper>
+        <Wrapper style={{...style}}>
             <WidthWrapper align={align}>
                 {children}
             </WidthWrapper>
@@ -46,10 +47,10 @@ const Container = ({ children, align }) => {
     )
 }
 
-const Main = ({ children, align }) => {
+const Main = ({ children, align, style }) => {
     return (
         <main>
-            <Container align={align}>
+            <Container align={align} style={style}>
                 {children}
             </Container>
         </main>

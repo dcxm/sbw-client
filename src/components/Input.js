@@ -14,7 +14,7 @@ const Input = styled.input`
     &:focus {
         outline: none;
         border-color: ${({theme}) => theme.colors.primary};
-        background-color: ${({focusColor}) => focusColor ? focusColor : '#e3e3e3'}
+        background-color: ${({focusColor}) => focusColor ? focusColor : '#e2e2e2'}
     }
 `
 

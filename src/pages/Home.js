@@ -1,17 +1,18 @@
 import React from 'react'
 
 import Main from '../components/Main'
-import ItemCard from '../components/ItemCard'
 import Header from '../components/Header'
+
+import Items from '../containers/Items'
 
 const Home = () => {
     return (
         <>
             <Main>
-                <Header variant={'1'} style={{ marginBottom: '1em' }}>
+                <Header variant={'1'} style={{ marginBottom: '.5em' }}>
                     My writings
                 </Header>
-                <ItemCard />
+                <Items />
             </Main>
         </>
     )

@@ -4,7 +4,7 @@ import styled from 'styled-components'
 
 const NavWrapper = styled.div`
   display: flex;
-  position: fixed;
+  position: ${({position}) => position ? position : 'fixed'};
   z-index: 99;
   width: 100%;
   box-sizing: border-box;

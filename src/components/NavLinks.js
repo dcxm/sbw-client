@@ -8,13 +8,13 @@ const NavLinks = ({ menu, customComponents }) => {
     return (
         <>
             { newMenu ?
-                <NavWrapper height='100%'>
+                <NavWrapper height='100%' position='relative' style={{justifyContent: 'flex-end'}}>
                     <div style={{
                         display: 'flex',
                         justifyContent: 'space-between',
                         alignItems: 'center'
                     }}>
-                        {newMenu.map((menuItem) =>
+                        {newMenu.map((menuItem, index) =>
                             !customComponents ?
                                 <Link
                                     href={menuItem.link}
@@ -23,7 +23,7 @@ const NavLinks = ({ menu, customComponents }) => {
                                     {menuItem.text}
                                 </Link>
                                 :
-                                <div style={{ padding: '0 0 0 4em' }}>
+                                <div key={index} style={{ padding: '0 0 0 4em' }}>
                                     {menuItem}
                                 </div>
                         )}

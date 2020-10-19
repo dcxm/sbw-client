@@ -16,6 +16,17 @@ import DialogFooter from './DialogFooter'
 
 const transitionDuration = 100
 
+const PromptText = styled.div`
+display: flex;
+flex-direction: column;
+justify-content: center;
+height: 100%;
+    font-size: 1.25em;
+    line-height: 1.7em;
+    font-weight: 600;
+    text-align: center;
+`
+
 const transitionStyles = {
     entering: {
         opacity: 0
@@ -33,7 +44,7 @@ const transitionStyles = {
 
 
 
-const Dialog = ({ title, open, closeAction, children, footer, footerSize, style, border }) => {
+const Prompt = ({ title, open, closeAction, children, footer, footerSize }) => {
 
     useEffect(() => {
         if (open) document.querySelector('body').style.overflow = 'hidden'
@@ -64,19 +75,21 @@ const Dialog = ({ title, open, closeAction, children, footer, footerSize, style,
                         style={{
                             opacity: 0,
                             transition: `all ${transitionDuration}ms`,
-                            ...transitionStyles[state],
+                            ...transitionStyles[state]
                         }}
                     >
-                        <AbsoluteWrapper style={{...style}}>
-                            <Wrapper border={border}>
+                        <AbsoluteWrapper style={{ width: "60%", height: "50%" }}>
+                            <Wrapper>
                                 <DialogHeader>
                                     <Header variant="1" style={{maxWidth: "85%"}}>{title}</Header>
                                     <CloseButton onClick={closeAction}>X</CloseButton>
                                 </DialogHeader>
                                 <Hr margin="0 0 0 0" />
                                 <ContentWrapper>
-                                    <DialogContent>
-                                        {children}
+                                    <DialogContent style={{padding: "1.5em"}}>
+                                        <PromptText>
+                                            {children}
+                                        </PromptText>
                                     </DialogContent>
                                 </ContentWrapper>
                                 <div style={{
@@ -97,4 +110,4 @@ const Dialog = ({ title, open, closeAction, children, footer, footerSize, style,
     )
 }
 
-export default Dialog
+export default Prompt

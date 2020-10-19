@@ -8,15 +8,17 @@ import Hr from '../Hr'
 const DialogFooterWrapper = styled.div`
         display: flex;
         box-sizing: border-box;
+        width: 100%;
         min-height: ${({ height }) => height};
     `
 
 DialogFooterWrapper.defaultProps = {
-    height: "2em"
+    height: "auto"
 }
 
 const DialogFooterContent = styled.div`
         display: flex;
+        width: 100%;
         align-items: center;
         padding: ${({ size }) => `${size * 0.5}em ${size * 1}em`};
     `

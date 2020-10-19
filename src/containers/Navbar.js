@@ -1,11 +1,14 @@
 import React, { useState } from 'react'
 
+import { connect } from 'react-redux'
+
 import styled from 'styled-components'
 import { Transition } from 'react-transition-group'
 
 import NavLinks from '../components/NavLinks'
 import NavWrapper from '../components/NavWrapper'
 import NavbarCollapseButton from '../components/Buttons/NavbarCollapseButton'
+import Link from '../components/Link'
 
 const SiteTitle = styled.h1`
   font-size: 1.5em;
@@ -24,14 +27,12 @@ const transitionStyles = {
 
 const animationDuration = 200 // in ms
 
-const Navbar = ({ title, collapseIcon }) => {
+const Navbar = ({ title, user, collapseIcon }) => {
     const [isNavbarOpen, setNavbarOpen] = useState(true)
     return (
         <>
             <Transition
                 in={isNavbarOpen}
-                // unmountOnExit
-                // mountOnEnter
                 timeout={animationDuration}>
                 {state =>
                     <NavWrapper border transitionProp={isNavbarOpen}
@@ -39,10 +40,16 @@ const Navbar = ({ title, collapseIcon }) => {
                             transform: ``,
                             transition: `transform ${animationDuration}ms`, ...transitionStyles[state]
                         }}>
-                        <SiteTitle>{title}</SiteTitle >
-                        <NavLinks />
-                            {/* customComponents menu={[<P><strong>Search</strong></P>, <P><strong>Filter</strong></P>]} */}
-                            {/* menu={[{text: 'Hello', link: '/hy'}]} */}
+                        <Link to='/' style={{display: "flex", alignItems: "center"}}>
+                            <SiteTitle>{title}</SiteTitle>
+                        </Link>
+                        <NavLinks customComponents menu={[
+                            <div style={{ display: "flex", alignItems: "center" }}>
+                                Hello <strong style={{ fontSize: '2em', marginLeft: '.2em' }}>
+                                    {user.email && user.email[0]}
+                                </strong>
+                            </div>
+                        ]} />
                     </NavWrapper >
                 }
             </Transition>
@@ -53,4 +60,4 @@ const Navbar = ({ title, collapseIcon }) => {
     )
 }
 
-export default Navbar
+export default connect(({ user }) => ({ user }))(Navbar)

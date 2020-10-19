@@ -2,9 +2,11 @@ import React from 'react'
 
 import styled from 'styled-components'
 
-const Link = styled.a`
+import {Link as RouterLink} from 'react-router-dom'
+
+const Link = styled(RouterLink)`
     color: ${({theme}) => theme.colors.navbar.text};
-    text-decoration: none;
+    text-decoration: ${({underline}) => underline ? 'underline' : "none"};
     font-weight: 600;
     height: 100%;
 `

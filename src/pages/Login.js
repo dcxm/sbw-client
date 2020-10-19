@@ -1,8 +1,11 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+
+import { connect } from 'react-redux'
+import { getUser } from "../store/actions/userActions";
 
 import styled from 'styled-components'
 
-import { useHistory } from 'react-router-dom'
+import { useHistory, useLocation } from 'react-router-dom'
 
 import Header from '../components/Header'
 import Main from '../components/Main'
@@ -28,27 +31,28 @@ const ErrorBox = styled.div`
     padding: 1em;
 `
 
-const Login = () => {
+const Login = ({ getUser }) => {
     const [formState, setFormState] = useState({ email: '', password: '' })
     const [error, setError] = useState('')
 
     const history = useHistory()
+    const location = useLocation()
 
-    const handleLoginClick = () => {
-        fetch(`${process.env.REACT_APP_API_URL}/users/login`, {
-            method: 'POST',
-            mode: 'cors',
-            credentials: 'include',
-            body: JSON.stringify(formState),
-            headers: {
-                'Content-Type': 'application/json'
-            }
-        }).then(jsonResponse => jsonResponse.json())
-            .then(res => {
-                if (res.error) setError(res.error)
-                return history.push('/')
-            })
-            .catch(err => console.log(err))
+    useEffect(() => {
+        if (location.state && location.state.error) setError(location.state.error)
+    }, [])
+
+    const handleLogin = async () => {
+        const validationErrorText = 'The email should be valid, the password should contain minimum 6 characters'
+        if (formState.email.length < 4) return setError(validationErrorText)
+        if (formState.password.length < 6) return setError(validationErrorText)
+        setError('')
+        try {
+            await getUser(formState)
+            history.push('/')
+        } catch ({error}) {
+            if (error) return setError(error)
+        }
     }
 
     return (
@@ -79,7 +83,7 @@ const Login = () => {
                     <Button
                         type="button"
                         style={{ marginTop: '1.2em' }}
-                        onClick={handleLoginClick}
+                        onClick={handleLogin}
                         bordered
                         rounded
                         size={1.2}>
@@ -92,4 +96,16 @@ const Login = () => {
     )
 }
 
-export default Login
+const mapStateToProps = ({ user }) => {
+    return {
+        user
+    }
+}
+
+const mapDispatchToProps = (dispatch) => {
+    return {
+        getUser: (loginData) => dispatch(getUser(loginData))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)

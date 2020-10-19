@@ -18,10 +18,11 @@ FixedWrapper.defaultProps = {
 
 const AbsoluteWrapper = styled.div`
     display: flex;
+    align-items: center;
     position: absolute;
-    top: 10%;
+    top: 5%;
     width: 80%;
-    height: 80%;
+    height: 90%;
 `
 
 const Wrapper = styled.div`
@@ -31,7 +32,7 @@ const Wrapper = styled.div`
     box-sizing: border-box;
     width: 100%;
     height: 100%;
-    border-radius: 1em;
+    border-radius: ${({border}) => border ? border : "1em"} ;
     background-color: white;
 `
 

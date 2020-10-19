@@ -9,9 +9,13 @@ const StyledForm = styled.form`
     box-sizing: border-box;
 `
 
-const Form = ({children, method, style}) => {
+const Form = ({ children, method, action, style, onSubmit }) => {
     return (
-        <StyledForm method={method} style={style}>
+        <StyledForm
+            method={method ? method : 'POST'}
+            action={action ? action : ''}
+            onSubmit={onSubmit ? onSubmit : (e) => e.preventDefault()}
+            style={style}>
             {children}
         </StyledForm>
     )
