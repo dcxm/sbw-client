@@ -27,8 +27,8 @@ const transitionStyles = {
 
 const animationDuration = 200 // in ms
 
-const Navbar = ({ title, user, collapseIcon }) => {
-    const [isNavbarOpen, setNavbarOpen] = useState(true)
+const Navbar = ({ title, user, collapseIcon, isNavbarOpen, setNavbarOpen }) => {
+    // const [isNavbarOpen, setNavbarOpen] = useState(true)
     return (
         <>
             <Transition
@@ -45,7 +45,7 @@ const Navbar = ({ title, user, collapseIcon }) => {
                         </Link>
                         <NavLinks customComponents menu={[
                             <div style={{ display: "flex", alignItems: "center" }}>
-                                Hello <strong style={{ fontSize: '2em', marginLeft: '.2em' }}>
+                                <strong style={{ fontSize: '2em', marginLeft: '.2em' }}>
                                     {user.email && user.email[0]}
                                 </strong>
                             </div>
@@ -60,4 +60,17 @@ const Navbar = ({ title, user, collapseIcon }) => {
     )
 }
 
-export default connect(({ user }) => ({ user }))(Navbar)
+const mapDispatchToProps = (dispatch) => ({
+    setNavbarOpen: () => dispatch({type: "SET_OPENABLE", payload: {field: "header"}})
+})
+
+const mapStateToProps = (state) => {
+    const {openables} = state
+    const {user} = state
+    return {
+        isNavbarOpen: openables.header.open,
+        user
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navbar)

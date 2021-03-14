@@ -1,6 +1,9 @@
 import { SET_OPENABLE } from "../actions/types";
 
 const initialState = {
+    header: {
+        open: true
+    },
     editDialog: {
         item: {},
         open: false
