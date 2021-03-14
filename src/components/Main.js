@@ -1,8 +1,11 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import styled from 'styled-components'
 
-const Wrapper = styled.div`
+const marginTransitionDuration = "0.2s"
+
+const ContainerWrapper = styled.div`
     display: flex;
     justify-content: center;
     width: 100%;
@@ -39,22 +42,37 @@ const WidthWrapper = styled.div`
 
 const Container = ({ children, align, style }) => {
     return (
-        <Wrapper style={{...style}}>
+        <ContainerWrapper style={{...style}}>
             <WidthWrapper align={align}>
                 {children}
             </WidthWrapper>
-        </Wrapper>
+        </ContainerWrapper>
     )
 }
 
-const Main = ({ children, align, style }) => {
+const Main = ({ children, align, isHeaderOpen, style }) => {
     return (
         <main>
-            <Container align={align} style={style}>
+            <Container 
+                align={align} 
+                style={
+                    isHeaderOpen === true ? {
+                        ...style, 
+                        marginTop: 0, 
+                        transition: `margin ${marginTransitionDuration}`,
+                    }
+                    :
+                    {
+                        ...style,
+                        marginTop: "-3em", 
+                        transition: `margin ${marginTransitionDuration}`
+                    } 
+                }
+            >
                 {children}
             </Container>
         </main>
     )
 }
 
-export default Main
+export default connect(({openables}) => ({isHeaderOpen: openables.header.open}))(Main)
